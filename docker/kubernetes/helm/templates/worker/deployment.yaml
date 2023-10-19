@@ -95,8 +95,6 @@ spec:
               value : {{print .Values.api.env.NODE_ENV | quote }}
             - name: PORT
               value : {{ print .Values.worker.port | quote }}
-            - name: MONGO_MIN_POOL_SIZE
-              value : {{print  .Values.api.env.MONGO_MIN_POOL_SIZE | quote }}
             - name: MONGO_MAX_POOL_SIZE
               value : {{print  .Values.api.env.MONGO_MAX_POOL_SIZE | quote }}
             - name: REDIS_HOST
@@ -120,10 +118,7 @@ spec:
                   name: {{ include "novu.redis.secretName" .}}
                   key: {{ include "novu.redis.passwordKey" .}}
             - name: MONGO_URL
-              valueFrom :
-                secretKeyRef:
-                  name: {{ include "novu.mongodb.secretName" .}}
-                  key: mongoUrl
+              value: "mongodb://mongodb.support:27017/novu-db"
             - name: S3_BUCKET_NAME
               valueFrom :
                secretKeyRef:

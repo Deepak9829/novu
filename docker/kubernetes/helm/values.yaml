@@ -76,7 +76,7 @@ api:
   image:
     registry: ghcr.io
     repository: novuhq/novu/api
-    tag: 0.15.0
+    tag: 0.17.1
     digest: ''
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -111,7 +111,7 @@ api:
   ## @param api.livenessProbe.successThreshold Success threshold for livenessProbe
   ##
   livenessProbe:
-    enabled: true
+    enabled: false
     initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
@@ -125,7 +125,7 @@ api:
   ## @param api.readinessProbe.successThreshold Success threshold for readinessProbe
   ##
   readinessProbe:
-    enabled: true
+    enabled: false
     initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
@@ -358,19 +358,18 @@ api:
     NODE_ENV: production
     ## @param api.env.API_ROOT_URL Define the required env for novu
     ##
-    API_ROOT_URL: http://novu-api:3000
+    API_ROOT_URL: https://uat-novu-api.tricogdev.net
     ## @param api.env.DISABLE_USER_REGISTRATION If users should not be able to create new accounts. Possible values are: true, false
     ##
-    DISABLE_USER_REGISTRATION: true
+    DISABLE_USER_REGISTRATION: false
     ## @param api.env.FRONT_BASE_URL The base url on which your frontend is accessible for the user. (e.g. web.novu.co)
     ##
-    FRONT_BASE_URL: http://novu-web:4200
+    FRONT_BASE_URL: https://uat-novu-web.tricogdev.net
     ## @param api.env.MONGO_MIN_POOL_SIZE The min pool size of the MongoDB connection
     ##
-    MONGO_MIN_POOL_SIZE: 10
     ## @param api.env.MONGO_MAX_POOL_SIZE The max pool size of the MongoDB connection
     ##
-    MONGO_MAX_POOL_SIZE: 50
+    MONGO_MAX_POOL_SIZE: 500
 
   ## novu api ingress parameters
   ## ref: http://kubernetes.io/docs/user-guide/ingress/
@@ -378,7 +377,7 @@ api:
   ingress:
     ## @param api.ingress.enabled Enable ingress record generation for novu api
     ##
-    enabled: false
+    enabled: true
     ## @param api.ingress.pathType Ingress path type
     ##
     pathType: ImplementationSpecific
@@ -387,7 +386,7 @@ api:
     apiVersion: ''
     ## @param api.ingress.hostname Default host for the ingress record
     ##
-    hostname: novu-api.local
+    hostname: uat-novu-api.tricogdev.net
     ## @param api.ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
     ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
     ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
@@ -493,7 +492,7 @@ worker:
   image:
     registry: ghcr.io
     repository: novuhq/novu/worker
-    tag: 0.15.0
+    tag: 0.17.1
     digest: ''
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -530,7 +529,7 @@ worker:
   ## @param worker.livenessProbe.successThreshold Success threshold for livenessProbe
   ##
   livenessProbe:
-    enabled: true
+    enabled: false
     initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
@@ -544,7 +543,7 @@ worker:
   ## @param worker.readinessProbe.successThreshold Success threshold for readinessProbe
   ##
   readinessProbe:
-    enabled: true
+    enabled: false
     initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
@@ -787,7 +786,7 @@ ws:
   image:
     registry: ghcr.io
     repository: novuhq/novu/ws
-    tag: 0.15.0
+    tag: 0.17.1
     digest: ''
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -824,7 +823,7 @@ ws:
   ## @param ws.livenessProbe.successThreshold Success threshold for livenessProbe
   ##
   livenessProbe:
-    enabled: true
+    enabled: false
     initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
@@ -838,7 +837,7 @@ ws:
   ## @param ws.readinessProbe.successThreshold Success threshold for readinessProbe
   ##
   readinessProbe:
-    enabled: true
+    enabled: false
     initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
@@ -1183,10 +1182,14 @@ web:
   ## @param web.image.pullSecrets Novu image pull secrets
   ## @param web.image.debug Enable Novu image debug mode
   ##
+  env:
+    ## @param api.env.NODE_ENV The environment of the app.
+    ##
+    NODE_ENV: production
   image:
     registry: ghcr.io
     repository: novuhq/novu/web
-    tag: 0.15.0
+    tag: 0.17.1
     digest: ''
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -1217,7 +1220,7 @@ web:
   ## @param web.livenessProbe.successThreshold Success threshold for livenessProbe
   ##
   livenessProbe:
-    enabled: true
+    enabled: false
     initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
@@ -1231,7 +1234,7 @@ web:
   ## @param web.readinessProbe.successThreshold Success threshold for readinessProbe
   ##
   readinessProbe:
-    enabled: true
+    enabled: false
     initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
@@ -1460,7 +1463,7 @@ web:
   ingress:
     ## @param web.ingress.enabled Enable ingress record generation for novu api
     ##
-    enabled: false
+    enabled: true
     ## @param web.ingress.pathType Ingress path type
     ##
     pathType: ImplementationSpecific
@@ -1469,7 +1472,7 @@ web:
     apiVersion: ''
     ## @param web.ingress.hostname Default host for the ingress record
     ##
-    hostname: novu-web.local
+    hostname: uat-novu-web.tricogdev.net
     ## @param web.ingress.ingressClassName IngressClass that will be be used to implement the Ingress (Kubernetes 1.18+)
     ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
     ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
@@ -1565,10 +1568,10 @@ web:
 
   ## @param web.apiExternalEndpoint The external endpoint of the API
   ##
-  apiExternalEndpoint: http://localhost:3000
+  apiExternalEndpoint: https://uat-novu-api.tricogdev.net
 
   ## @param web.wsExternalEndpoint The external websocket endpoint of the API
-  wsExternalEndpoint: ws://localhost:3002
+  wsExternalEndpoint: ws://novu-ws:3002
 
 ## @section Persistence Parameters
 ##
@@ -1737,8 +1740,8 @@ redis:
   enabled: false
   architecture: standalone
   auth:
-    enabled: true
-    password: novu_password # you need to change this !
+    enabled: false
+    password: '' # you need to change this !
 
 ## @section Localstack (S3) configuration
 ##
@@ -1761,9 +1764,8 @@ localstack:
 ## @param externalDatabase.password Password for external mongoDB database
 ## @param externalDatabase.database Database name for external mongoDB database
 externalDatabase:
-  host: mongodb.local
+  host: mongodb.support
   port: 27017
-  username: 'novu'
   password: ''
   database: novu-db
 
@@ -1774,7 +1776,7 @@ externalDatabase:
 ## @param externalRedis.port Port for external Redis database
 ## @param externalRedis.password Password for external Redis database
 externalRedis:
-  host: redis
+  host: redis-master.support
   port: 6379
   password: ''
 
