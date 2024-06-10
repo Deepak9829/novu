@@ -490,9 +490,9 @@ worker:
   ## @param worker.image.debug Enable Novu image debug mode
   ##
   image:
-    registry: ghcr.io
-    repository: novuhq/novu/worker
-    tag: 0.22.0
+    registry: public.ecr.aws/d4p7d8l4
+    repository: novu-worker-custom
+    tag: 1.1
     digest: ''
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
